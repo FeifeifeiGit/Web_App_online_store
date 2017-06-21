@@ -1,0 +1,164 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>seller sign up</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="resources/css/finalproject-1.css">
+</head>
+<script>
+   //AJAX
+		 var xmlHttp;
+        xmlHttp = GetXmlHttpObject();
+        function checkUser() {
+           if (xmlHttp == null)
+            {
+                alert("Your browser does not support AJAX!");
+                return;
+            }
+            var username = document.getElementById("username").value;
+            var query = "action=nameCheck&username="+ username;
+
+            xmlHttp.onreadystatechange = function stateChanged()
+            {
+                if (xmlHttp.readyState == 4 &&xmlHttp.status==200)
+                {
+                    //alert(xmlHttp.responseText);
+                    //var json = JSON.parse(xmlHttp.responseText);
+                    //document.getElementById("error").innerHTML = json;
+                    document.getElementById("error").innerHTML = xmlHttp.responseText;
+                }
+            };
+            xmlHttp.open("POST", "testseller.htm", true);
+            xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xmlHttp.send(query);
+           return false;
+        }
+        function checkEmail() {
+            if (xmlHttp == null)
+             {
+                 alert("Your browser does not support AJAX!");
+                 return;
+             }
+             var email = document.getElementById("email").value;
+             var query = "action=emailCheck&email="+ email;
+
+             xmlHttp.onreadystatechange = function stateChanged()
+             {
+                 if (xmlHttp.readyState == 4 &&xmlHttp.status==200)
+                 {
+                     //alert(xmlHttp.responseText);
+                     //var json = JSON.parse(xmlHttp.responseText);
+                     //document.getElementById("error").innerHTML = json;
+                     document.getElementById("errorEmail").innerHTML = xmlHttp.responseText;
+                 }
+             };
+             xmlHttp.open("POST", "testseller.htm", true);
+             xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+             xmlHttp.send(query);
+            return false;
+         }
+        
+         function GetXmlHttpObject()
+        {
+            var xmlHttp = null;
+            try
+            {
+                // Firefox, Opera 8.0+, Safari
+                xmlHttp = new XMLHttpRequest();
+            } catch (e)
+            {
+                // Internet Explorer
+                try
+                {
+                    xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+                } catch (e)
+                {
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+            }
+            return xmlHttp;
+        }
+         
+         function validateForm() {
+     	    var x = document.forms["myForm"]["email"].value;
+     	    var atpos = x.indexOf("@");
+     	    var dotpos = x.lastIndexOf(".");
+     	    if (atpos<1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+     	        alert("Not a valid e-mail address");
+     	        return false;
+     	    }
+     	}
+        
+</script>
+
+<body>
+ <div  class="container signup-section ">
+     <div class="row signup-form">
+         <div class="col-xs-12 col-sm-8 col-md-8 col-sm-offset-2 col-md-offset-2">
+            <form:form name = "myForm" action="sellersignup.htm" commandName="seller" method="post" id ="sellersignupform" >
+        
+               <legend>Personal information:</legend>
+            <div class="form-group">
+           		 <label for="firstname"> First Name:</label>
+                 <form:input type="text" path="firstname" id="firstname" class="form-control" /><font color="red"><form:errors path="firstname"/></font> 
+             </div>
+             <div class="form-group">
+             	<label for="lastname"> Last Name:</label>
+                 <form:input path="lastname" id="lastname" class="form-control" />  <font color="red"><form:errors path="lastname"/></font><br>
+             </div>
+             <div class="form-group">
+             <label for="username"> Username:</label>
+                 <form:input path="username"  id="username" class="form-control" onblur="return checkUser()"/>  <font color="red"><form:errors path="username"/></font>
+              </div>
+                <div id="error" style="color:red"></div>
+              <div class="form-group">
+              <label for="password"> Password:</label>
+                 <form:input  path="password" id="password" class="form-control"/> <font color="red"><form:errors path="password"/></font>
+              </div>
+              <div class="form-group">
+              <label for="email"> Email:</label>
+                 <form:input  path="email" id="email" class="form-control" onblur="return checkEmail(),validateForm() " /> <font color="red"><form:errors path="email"/></font>
+              </div>
+                <div id="errorEmail" style="color:red"></div>
+       
+           
+                <legend> Address:</legend>
+                <div class="form-group">
+                <label for="city"> City:</label>
+                	<form:input path="city" name="city" id="city" class="form-control" /> <font color="red"><form:errors path="city"/></font> 
+                </div>
+                <div class="form-group">
+                <label for="street"> Street:</label>
+                	<form:input  path="street" name="street" id="street"  class="form-control" /> <font color="red"> <form:errors path="street"/></font>
+                </div>
+                <div class="form-group">
+                <label for="postcode">Postcode:</label>
+                	<form:input  path="postcode" name="postcode" id="postcode"  class="form-control" /> <font color="red"> <form:errors path="postcode"/></font>
+                </div>	
+         
+              <div class="row">
+            	 	 <div class="col-xs-12">
+                			<input type="submit" class="btn btn-primary btn-block btn-lg" name="Sign up" value="Sign up"/>
+                	</div>
+               </div>
+            </form:form>
+            <br>
+               <div class="row">
+	        	 	<div class="col-xs-10 col-xs-offset-2">
+	                  Already a member?<a href="signin.htm">Click here to sign in</a>
+	           		</div>
+           		</div>
+           </div>
+         </div>
+
+        </div>
+</body>
+
+</html>
