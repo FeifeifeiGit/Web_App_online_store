@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="signupValidator" class="com.fei.controller.SignupValidator"></bean>
+	<bean id="sellersignupValidator" class="com.fei.controller.SellerSignupValidator"></bean>
+	<bean id="buyerDAO" class="com.fei.dao.BuyerDAO"></bean>
+	<bean id="sellerDAO" class="com.fei.dao.SellerDAO"></bean>
+	<bean id="productDAO" class="com.fei.dao.ProductDAO"></bean>
+	<bean id="orderDAO" class="com.fei.dao.OrderDAO"></bean>
+</beans>
